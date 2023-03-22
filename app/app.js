@@ -3,6 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const movieRoutes = require('../api/routes/movies');
+const directorRoutes = require('../api/routes/directors');
+
 // middleware for logging
 app.use(morgan('dev'));
 // parsing middleware
@@ -13,8 +15,9 @@ app.use(express.urlencoded({
 app.use(express.json());
 // req.body.username  
 
-//Router - difine router
+//Router - define router
 app.use('/movies', movieRoutes);
+app.use('/director', directorRoutes)
 // use middleware to handle CORs Policy
 app.use((req,res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
