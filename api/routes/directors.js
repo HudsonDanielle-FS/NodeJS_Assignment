@@ -3,6 +3,7 @@ const { MongoDriverError } = require("mongodb");
 const mongoose = require("mongoose");
 const router = express.Router();
 const Director = require("../models/director");
+const Messages = require("../../messages/messages");
 
 //1. GET
 router.get("/", (req, res, next) => {
@@ -36,12 +37,13 @@ router.get("/:directorId", (req, res, next) => {
   const directorId = req.params.directorId;
   Director.findById(directorId)
     .select("name _id")
+    .populate("movie", "title director")
     .exec()
     .then((director) => {
         if(!director){
             console.log(director)
             return res.status(404).json({
-                message: "Director Not Found"
+                message: Messages.director_not_found
             })
         }
       res.status(201).json({
