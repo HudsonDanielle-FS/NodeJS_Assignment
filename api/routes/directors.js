@@ -134,9 +134,13 @@ router.patch("/:directorId", (req, res, next) => {
               message: Messages.director_not_found,
             });
           }
-      res.status(200).json({
+      return res.status(200).json({
         message: Messages.director_updated,
-        director: director,
+        director: {
+            movie: updatedDirector.movie,
+            name: updatedDirector.name,
+            id: directorId
+        },
         metadata: {
           method: req.method,
           host: req.hostname,
