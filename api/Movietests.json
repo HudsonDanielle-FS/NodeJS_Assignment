@@ -1,0 +1,115 @@
+		
+			"name": "Movie-GET",
+			
+				pm.test("Status Test", function (){
+				    pm.response.to.have.status(200);
+				});
+				pm.test("Message should say GET movie", function (){
+				    const response = pm.response.json();
+				    pm.expect(response).to.have.property("message", "GET Movie");
+				});
+				pm.test("metadata should return hostname", function (){
+				    const response = pm.response.json();
+				    pm.expect(response).to.have.property("host", req.hostname);
+				});
+
+				pm.test("Response should contain a list of manga", () => {
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("manga").that.is.an("array");
+				)}
+
+				pm.test("Response should contain metadata about the request", () => {
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("metadata").that.is.an("object");
+					pm.expect(response.metadata).to.have.property("method").that.is.a("string");
+					pm.expect(response.metadata).to.have.property("host").that.is.a("string");
+				});
+			
+			
+			
+			"name": "Movie - POST",
+
+				pm.test("Status Test", function (){
+					pm.response.to.have.status(200);
+				});
+				pm.test("Message should say Movie Saved", function (){
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("message", "movie Saved")
+				});
+				pm.test("Title should say result.title", function () {
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("title", "result.title");
+				});
+			
+	
+			"name": "Movie-GET by ID",
+								
+				pm.test("Status Test", function (){
+					pm.response.to.have.status(200);
+				});
+				pm.test("Message should say GET movie", function (){
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("message", "GET Movie by Id");
+				);
+				pm.test("metadata should return method", function (){
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("method", "req.method");
+				});
+				pm.test("should contain movie object", () => {
+					const reponse = pm.response.json();
+					pm.expect(reponse).to.be.an("object")
+				})
+				pm.test("Movies should have the correct ID", () => {
+					const response = pm.response.json();
+					const movieId = pm.variables.get("movieId");
+					pm.expect(response.movie.id).to.eql(movieId);
+				});
+
+
+			"name": "Movie-PATCH",
+		
+				pm.test("Status Test", function (){
+					pm.response.to.have.status(200);
+				});
+				pm.test("Message should say Updated Movie", function (){
+					const response = pm.response.json();
+					pm.expect(response).to.have.property("message", "Updated Movie");
+				});
+				pm.test(\"Return updated producer\", function() {
+					const response = pm.response.json();
+					pm.expect(response).to.have.property(\"producer\", \"reslult.producer\");
+				});
+				pm.test("should contain movie object", () => {
+					const reponse = pm.response.json();
+					pm.expect(reponse).to.be.an("object")
+				})
+
+							
+
+												
+			"name": "Moive-DELETE",
+			
+				pm.test("Status Test", function (){
+				    pm.response.to.have.status(200);
+				});
+				pm.test("Message should say movie deleted", function (){
+				    const response = pm.response.json();
+				    pm.expect(response).to.have.property("message", "Movie Deleted");
+				});
+				pm.test("Return the Deleted MovieId", function() {
+				    const response = pm.response.json();
+				    pm.expect(response).to.have.property("id", "result._id");
+				});
+				pm.test("should contain movie object", () => {
+					const reponse = pm.response.json();
+					pm.expect(reponse).to.be.an("object")
+				})
+				"pm.test(\"Response body has expected message\", function () {\r",
+				"    pm.expect(pm.response.json().message).to.eql(\"Manga was successfully deleted\");\r",
+				"});\r",
+				"\r",
+				"pm.test(\"Manga should have the correct ID\", () => {\r",
+				"  const response = pm.response.json();\r",
+				"  const mangaId = pm.variables.get(\"mangaId\");\r",
+				"  pm.expect(response.manga.id).to.eql(mangaId);\r",
+				"});"
